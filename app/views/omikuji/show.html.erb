@@ -1,0 +1,77 @@
+<div class="min-h-screen bg-stone-100 flex flex-col items-center py-12 px-4 font-serif text-stone-800">
+  
+  <%# フラッシュメッセージ %>
+  <% if flash[:notice] %>
+    <div class="mb-6 px-4 py-2 bg-green-100 border border-green-400 text-green-700 rounded text-sm shadow-sm">
+      <%= flash[:notice] %>
+    </div>
+  <% end %>
+
+  <%# メインのおみくじカード %>
+  <div class="max-w-sm w-full bg-white border-4 border-red-800 rounded-lg shadow-2xl overflow-hidden p-8 text-center relative">
+    <div class="absolute top-2 left-2 right-2 border border-red-100 h-full pointer-events-none -z-0"></div>
+    
+    <h1 class="text-2xl font-bold text-red-800 mb-6 border-b-2 border-red-100 pb-2">奉納 御神籤</h1>
+
+    <div class="relative z-10">
+      <% if @image_file %>
+        <div class="flex justify-center mb-6 h-48 items-center">
+        <%# 一旦、画像表示部分を無効にします %>
+        <% if false %> 
+          <div class="flex justify-center mb-6 h-48 items-center">
+            <%= image_tag @image_file, alt: @result_name, class: "max-h-full drop-shadow-lg" %>
+          </div>
+        <% end %>
+        </div>
+      <% end %>
+
+      <p class="text-stone-500 text-xs mb-1">あなたの今日の運勢は</p>
+      <h2 class="text-6xl font-black tracking-widest text-stone-900 mb-4"><%= @result_name %></h2>
+      <p class="text-stone-600 italic px-4 leading-relaxed mt-6 underline decoration-red-200 underline-offset-8">
+        「<%= @message %>」
+      </p>
+    </div>
+
+    <%= link_to root_path, class: "inline-block mt-10 px-10 py-3 bg-red-800 text-white font-bold rounded-full hover:bg-red-700 transition-all shadow-lg active:scale-95" do %>
+      もう一度引く
+    <% end %>
+  </div>
+
+  <%# 統計セクション %>
+  <div class="mt-10 grid grid-cols-2 gap-4 w-full max-w-sm">
+    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 text-center">
+      <p class="text-[10px] text-stone-500 uppercase tracking-tighter">累計参拝数</p>
+      <p class="text-xl font-bold"><%= @total_count %><span class="text-xs ml-1">回</span></p>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-sm border border-stone-200 text-center border-b-yellow-400 border-b-4">
+      <p class="text-[10px] text-stone-500 uppercase tracking-tighter">大吉数 (<%= @daikichi_percent %>%)</p>
+      <p class="text-xl font-bold text-red-600"><%= @daikichi_count %><span class="text-xs text-stone-800 ml-1">回</span></p>
+    </div>
+  </div>
+
+  <%# 履歴セクション %>
+  <div class="mt-12 w-full max-w-sm">
+    <h3 class="text-sm font-bold text-stone-600 mb-4 border-l-4 border-red-800 pl-2">最近の参拝履歴</h3>
+    <div class="space-y-2">
+      <% @history.each do |h| %>
+        <div class="bg-white/60 p-3 rounded flex justify-between items-center border border-stone-200 text-sm">
+          <span class="font-bold"><%= h.fortune %></span>
+          <span class="text-[10px] text-stone-400 font-sans"><%= h.created_at.strftime("%m/%d %H:%M") %></span>
+        </div>
+      <% end %>
+    </div>
+
+    <% if @history.any? %>
+      <div class="mt-8 text-center">
+        <%= button_to "履歴をすべてお清めする", destroy_all_results_path, 
+                      method: :delete, 
+                      data: { confirm: "これまでの履歴を削除します。よろしいですか？" },
+                      class: "text-[10px] text-stone-400 hover:text-red-800 underline uppercase tracking-widest transition-colors" %>
+      </div>
+    <% end %>
+  </div>
+
+  <footer class="mt-12 text-[10px] text-stone-400">
+    © 2026 令和デジタル神社 開発部
+  </footer>
+</div>
