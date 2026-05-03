@@ -1,24 +1,53 @@
-# README
+# ⛩️ Rails おみくじアプリ (Omikuji App)
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Rails 8 を使用して作成した、神社風デザインのおみくじアプリケーションです。
+運勢の抽選だけでなく、履歴の保存や統計機能、モダンな UI デザインを盛り込んでいます。
 
-Things you may want to cover:
+## 🌟 主な機能
 
-* Ruby version
+- **おみくじ抽選**: アクセスするたびにランダムで運勢（大吉・中吉・吉・凶など）を決定。
+- **動的な画像表示**: 運勢の結果に合わせた縁起の良い画像を表示。
+- **履歴保存 (CRUD)**: データベース（SQLite）を使用し、過去に引いた運勢を最新5件まで表示。
+- **統計計算**: これまでの総参拝回数、大吉の当選回数、および大吉の的中率をリアルタイムで算出。
+- **お清め機能**: データベースの履歴を一括削除してリセットする機能。
+- **和風モダンデザイン**: Tailwind CSS を使用し、朱色と和紙のような質感を表現したレスポンシブデザイン。
 
-* System dependencies
+## 🛠 使用技術
 
-* Configuration
+- **Ruby**: 3.4.2
+- **Ruby on Rails**: 8.0.5
+- **Database**: SQLite3
+- **Frontend**: Tailwind CSS
+- **Asset Management**: Propshaft (Rails 8 default)
 
-* Database creation
+## 🚀 セットアップ方法
 
-* Database initialization
+ローカル環境で動作させる手順は以下の通りです。
+```bash
+# リポジトリのクローン
+git clone [https://github.com/hirof35/omikuji_app.git](https://github.com/hirof35/omikuji_app.git)
+cd omikuji_app
 
-* How to run the test suite
+# 依存関係のインストール
+bundle install
 
-* Services (job queues, cache servers, search engines, etc.)
+# データベースの作成とマイグレーション
+rails db:prepare
 
-* Deployment instructions
+# サーバーの起動
+./bin/dev
+# または
+rails s
+起動後、ブラウザで http://localhost:3000 にアクセスしてください。
 
-* ...
+📸 スクリーンショット
+(ここに実際のアプリのスクリーンショットを貼るとより良くなります！)
+
+📝 開発のポイント
+MVCモデルの理解: コントローラーでの抽選ロジック、モデルでのデータ永続化、ビューでの条件分岐表示をバランスよく実装しました。
+
+統計ロジック: ActiveRecord を活用し、効率的なデータ集計（count, where）を行っています。
+
+UX: 履歴をリセットする際の確認ダイアログ（data-confirm）や、フラッシュメッセージによる操作感の向上。
+
+© 2026 hirof35 - 令和デジタル神社
