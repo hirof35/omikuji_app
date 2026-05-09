@@ -1,3 +1,4 @@
+
 # ⛩️ Rails おみくじアプリ (Omikuji App)
 
 Rails 8 を使用して作成した、神社風デザインのおみくじアプリケーションです。
@@ -45,7 +46,7 @@ rails s
 
 📝 開発のポイント
 MVCモデルの理解: コントローラーでの抽選ロジック、モデルでのデータ永続化、ビューでの条件分岐表示をバランスよく実装しました。
-
+<img width="1311" height="1091" alt="スクリーンショット 2026-05-09 141846" src="https://github.com/user-attachments/assets/1f4ec82f-dc30-4871-9046-aa554e805dc9" />
 統計ロジック: ActiveRecord を活用し、効率的なデータ集計（count, where）を行っています。
 
 UX: 履歴をリセットする際の確認ダイアログ（data-confirm）や、フラッシュメッセージによる操作感の向上。
